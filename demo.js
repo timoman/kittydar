@@ -158,13 +158,29 @@ var detector = {
     $("#progress").text(rects.length + " " + noun + " detected");
 
     this.clearRects();
-    this.paintRects(rects, "red");
+    // this.paintRects(rects, "blue");
+    this.drawMoose(rects);
   },
 
   clearRects: function() {
     var canvas = $("#annotations").get(0);
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  },
+
+  drawMoose : function(rects) {
+      var canvas = $("#annotations").get(0);
+      var ctx = canvas.getContext("2d");
+
+      var moose_img = new Image();
+      moose_img.src = 'images/moose.png';
+
+      moose_img.onload = function() {
+        for (var i = 0; i < rects.length; i++) {
+            var rect = rects[i];
+            ctx.drawImage(moose_img, rect.x - 125, rect.y - 90);
+          }
+      }
   },
 
   paintRects : function(rects, color) {
